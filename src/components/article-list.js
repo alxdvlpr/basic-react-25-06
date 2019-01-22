@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Article from './article'
 import accordion from '../decorators/accordion'
+import { articles } from './../commonPropTypes'
 
 export class ArticleList extends Component {
   componentDidMount() {
@@ -23,5 +24,7 @@ export class ArticleList extends Component {
     ))
   }
 }
+
+ArticleList.propTypes = { ...articles }
 
 export default accordion(ArticleList)

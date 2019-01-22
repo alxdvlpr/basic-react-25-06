@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export default (OriginalComponent) =>
+export default (OriginalComponent) => {
   class ToggleOpen extends React.Component {
     state = {
       isOpen: false
@@ -21,3 +22,10 @@ export default (OriginalComponent) =>
       )
     }
   }
+
+  ToggleOpen.propTypes = {
+    OriginalComponent: PropTypes.element
+  }
+
+  return ToggleOpen
+}

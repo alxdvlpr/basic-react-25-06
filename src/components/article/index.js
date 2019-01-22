@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import CommentList from '../comment-list'
 import CSSTransition from 'react-addons-css-transition-group'
+import { articles } from './../../commonPropTypes'
 import './style.css'
 
 class Index extends PureComponent {
@@ -50,13 +51,7 @@ class Index extends PureComponent {
 }
 
 Index.propTypes = {
-  article: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    text: PropTypes.string,
-    comments: PropTypes.array
-  }).isRequired,
-
+  ...articles,
   isOpen: PropTypes.bool,
   toggleOpen: PropTypes.func.isRequired
 }

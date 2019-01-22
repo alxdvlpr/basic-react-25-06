@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import DateRange from './date-range'
 import SelectFilter from './select'
+import { articles } from './../../commonPropTypes'
 
 class Filters extends Component {
-  static propTypes = {}
-
   render() {
     return (
       <div>
@@ -14,5 +13,7 @@ class Filters extends Component {
     )
   }
 }
+
+Filters.propTypes = { ...articles }
 
 export default Filters

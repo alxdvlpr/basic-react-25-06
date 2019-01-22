@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import { articles } from './../../commonPropTypes'
 
 class SelectFilter extends Component {
   state = {
@@ -26,5 +27,7 @@ class SelectFilter extends Component {
     )
   }
 }
+
+SelectFilter.propTypes = { ...articles }
 
 export default SelectFilter

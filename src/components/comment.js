@@ -1,4 +1,5 @@
 import React from 'react'
+import { comments } from './../commonPropTypes'
 
 function Comment({ comment }) {
   return (
@@ -7,5 +8,7 @@ function Comment({ comment }) {
     </div>
   )
 }
+
+Comment.propTypes = { ...comments }
 
 export default Comment

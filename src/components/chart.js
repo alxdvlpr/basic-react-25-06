@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { articles } from './../commonPropTypes'
 
 export default class ArticlesChart extends Component {
   render() {
@@ -14,3 +15,5 @@ export default class ArticlesChart extends Component {
     //update your charts
   }
 }
+
+ArticlesChart.propTypes = { ...articles }
