@@ -1,6 +1,7 @@
 import React from 'react'
 import Enzyme, { render, shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import { jest } from 'jest'
 import WrappedArticleList, { ArticleList } from './article-list'
 import articles from '../fixtures'
 
@@ -32,6 +33,25 @@ describe('ArticleList', () => {
       .simulate('click')
 
     expect(wrapper.find('.test--article__body').length).toEqual(1)
+  })
+
+  it('should close article on click', (done) => {
+    const wrapper = mount(<WrappedArticleList articles={articles} />)
+
+    wrapper
+      .find('.test--article__btn')
+      .at(0)
+      .simulate('click')
+
+    wrapper
+      .find('.test--article__btn')
+      .at(0)
+      .simulate('click')
+
+    setTimeout(() => {
+      done()
+      expect(wrapper.find('.test--article__body').length).toEqual(0)
+    }, 0)
   })
 
   it('should call fetchData on init', (done) => {
