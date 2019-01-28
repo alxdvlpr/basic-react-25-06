@@ -8,8 +8,6 @@ export class ArticleList extends Component {
   static propTypes = {
     articles: PropTypes.array.isRequired,
     fetchData: PropTypes.func,
-
-    //from accordion decorator
     openItemId: PropTypes.string,
     toggleItem: PropTypes.func
   }
@@ -22,13 +20,38 @@ export class ArticleList extends Component {
     return <ul>{this.articles}</ul>
   }
 
+  get selectedArticles() {
+    const {
+      articles,
+      filters: {
+        selectedArticles,
+        dateRange: { from, to }
+      }
+    } = this.props
+    const filterBySelected = (article) =>
+      !selectedArticles.length ||
+      selectedArticles.some(
+        ({ value: selectedArticle }) => selectedArticle === article.id
+      )
+    const filterByDate = ({ date: articleDate }) =>
+      (!from || new Date(articleDate).valueOf() > from.valueOf()) &&
+      (!to || new Date(articleDate).valueOf() < to.valueOf())
+
+    return articles.filter(filterBySelected).filter(filterByDate)
+  }
+
   get articles() {
-    return this.props.articles.map((article) => (
+    const { openItemId, toggleOpenItem } = this.props
+
+    if (!this.selectedArticles.length)
+      return <h4>Opps! There are not articles matching your criteria</h4>
+
+    return this.selectedArticles.map((article) => (
       <li key={article.id} className="test--article-list__item">
         <Article
           article={article}
-          isOpen={this.props.openItemId === article.id}
-          toggleOpen={this.props.toggleOpenItem}
+          isOpen={openItemId === article.id}
+          toggleOpen={toggleOpenItem}
         />
       </li>
     ))
@@ -36,5 +59,6 @@ export class ArticleList extends Component {
 }
 
 export default connect((state) => ({
-  articles: state.articles
+  articles: state.articles,
+  filters: state.filters
 }))(accordion(ArticleList))
