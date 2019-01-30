@@ -1,13 +1,8 @@
 import { CREATE_COMMENT } from '../constants'
 import { normalizedComments } from '../fixtures'
+import { reduceDataStructure } from '../helpers'
 
-const defaultComments = normalizedComments.reduce(
-  (acc, comment) => ({
-    ...acc,
-    [comment.id]: comment
-  }),
-  {}
-)
+const defaultComments = reduceDataStructure(normalizedComments)
 
 export default (commentsState = defaultComments, action) => {
   const { type } = action
