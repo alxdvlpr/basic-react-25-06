@@ -4,12 +4,14 @@ import { reduceDataStructure } from '../helpers'
 
 const defaultArticles = reduceDataStructure(normalizedArticles)
 
-export default (articlesState = defaultArticles, action) => {
+export default (articles = defaultArticles, action) => {
   const { type, payload } = action
 
   switch (type) {
     case DELETE_ARTICLE:
-      return articlesState[payload.id].remove
+      const updatedArticles = { ...articles }
+      delete updatedArticles[payload.id]
+      return updatedArticles
 
     case CREATE_COMMENT:
       const {
@@ -18,13 +20,15 @@ export default (articlesState = defaultArticles, action) => {
         },
         id
       } = action
-      const updatedArticles = { ...articlesState }
-      const comments = updatedArticles[articleId].comments || []
-
-      comments.push(id)
-      return updatedArticles
+      return {
+        ...articles,
+        [articleId]: {
+          ...articles[articleId],
+          comments: [...(articles[articleId].comments || []), id]
+        }
+      }
 
     default:
-      return articlesState
+      return articles
   }
 }
