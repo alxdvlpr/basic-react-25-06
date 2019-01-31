@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import adaptNewComment from '../middlewares/adaptNewComment'
-import logger from '../middlewares/logger'
+import customMiddleware from '../middlewares/index'
 import reducer from '../reducer'
 
 const composeEnhancers =
@@ -11,7 +10,7 @@ const composeEnhancers =
     : compose
 
 const enhancer = composeEnhancers(
-  applyMiddleware(logger, adaptNewComment)
+  applyMiddleware(customMiddleware)
   // other store enhancers if any
 )
 

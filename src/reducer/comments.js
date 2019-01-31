@@ -10,9 +10,12 @@ export default (commentsState = defaultComments, action) => {
   switch (type) {
     case CREATE_COMMENT:
       const {
-        payload: { comment }
+        payload: {
+          comment: { user, text }
+        },
+        id
       } = action
-      return { ...commentsState, [comment.id]: comment }
+      return { ...commentsState, [id]: { id, user, text } }
 
     default:
       return commentsState

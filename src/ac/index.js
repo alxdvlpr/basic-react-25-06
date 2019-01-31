@@ -36,6 +36,7 @@ export function changeSelection(selected) {
 export function createComment(comment) {
   return {
     type: CREATE_COMMENT,
-    payload: { comment }
+    payload: { comment },
+    generateId: true
   }
 }

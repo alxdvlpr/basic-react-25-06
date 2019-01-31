@@ -13,8 +13,11 @@ export default (articlesState = defaultArticles, action) => {
 
     case CREATE_COMMENT:
       const {
-        comment: { articleId, id }
-      } = action.payload
+        payload: {
+          comment: { articleId }
+        },
+        id
+      } = action
       const updatedArticles = { ...articlesState }
       const comments = updatedArticles[articleId].comments || []
 
