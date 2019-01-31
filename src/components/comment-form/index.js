@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { createComment } from './../ac'
-import { changeDateRange } from '../ac'
+import { createComment } from '../../ac/index'
+import { changeDateRange } from '../../ac/index'
 
-class CreateCommentForm extends Component {
+class CommentForm extends Component {
   constructor(props) {
     super(props)
     this.nameElement = React.createRef()
@@ -17,7 +17,15 @@ class CreateCommentForm extends Component {
     this.textElement.current.focus()
   }
 
+  get isFormValid() {
+    const name = this.nameElement.current.value
+    const text = this.textElement.current.value
+
+    return isFieldValid(name, 'name') && isFieldValid(text, 'text')
+  }
+
   createComment() {
+    if (!this.isFormValid) return false
     this.props.createComment({
       user: this.nameElement.current.value,
       text: this.textElement.current.value,
@@ -40,6 +48,21 @@ class CreateCommentForm extends Component {
   }
 }
 
+const validationRules = {
+  user: {
+    min: 3,
+    max: 20
+  },
+  text: {
+    min: 10,
+    max: 100
+  }
+}
+
+const isFieldValid = (fieldName, fieldValue) =>
+  fieldValue.length >= validationRules[fieldName].min &&
+  fieldValue.length <= validationRules[fieldName].max
+
 Comment.propTypes = {
   parentId: PropTypes.string,
   // from connect
@@ -49,4 +72,4 @@ Comment.propTypes = {
 export default connect(
   null,
   { createComment }
-)(CreateCommentForm)
+)(CommentForm)

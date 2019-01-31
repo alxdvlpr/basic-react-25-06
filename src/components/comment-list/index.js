@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import CSSTransition from 'react-addons-css-transition-group'
 import Comment from '../comment'
 import toggleOpen from '../../decorators/toggleOpen'
-import CreateCommentForm from './../create-comment-form'
+import CreateCommentForm from '../comment-form/index'
 import './style.css'
 
 class CommentList extends Component {
